@@ -1,0 +1,140 @@
+:root {
+  --space: #0a0a0b;
+  --space-raise: #111114;
+  --space-line: #1f2026;
+  --starlight: #f5f5f4;
+  --muted: #a3a8b3;
+  --faint: #80858f;
+  --slate: #5a6170;
+  --peach: #f3d9c4;
+  --horizon: #f0b489;
+  --cyan: #22d3ee;
+  --cyan-light: #7ae5f5;
+  --cyan-dark: #1aa4b9;
+
+  --font: "Inter Variable", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --wrap: 1160px;
+  --gutter: clamp(16px, 4vw, 40px);
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--space);
+  color: var(--starlight);
+  font-family: var(--font);
+  font-optical-sizing: auto;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.wrap {
+  width: 100%;
+  max-width: calc(var(--wrap) + var(--gutter) * 2);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s,
+    border-color 0.2s;
+}
+
+.btn-primary {
+  background: var(--starlight);
+  color: var(--space);
+  box-shadow: 0 0 0 0 rgb(240 180 137 / 0);
+}
+
+.btn-primary:hover {
+  background: #fff;
+  box-shadow: 0 0 32px 2px rgb(240 180 137 / 0.35);
+}
+
+.btn-ghost {
+  border: 1px solid rgb(245 245 244 / 0.16);
+  color: var(--starlight);
+}
+
+.btn-ghost:hover {
+  border-color: rgb(243 217 196 / 0.5);
+  background: rgb(243 217 196 / 0.06);
+}
+
+.btn svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--peach);
+}
+
+:focus-visible {
+  outline: 2px solid var(--peach);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
