@@ -1,5 +1,7 @@
 <script>
   import { onMount } from "svelte";
+  import Mug from "./Mug.svelte";
+  import { kofi } from "./content.js";
 
   let scrollY = $state(0);
   let open = $state(false);
@@ -12,6 +14,7 @@
     { href: "#tandem", label: "Tandem" },
     { href: "#faq", label: "FAQ" },
     { href: "https://github.com/xhalo-dev/atlas", label: "GitHub" },
+    { href: kofi, label: "Support", support: true },
   ];
 </script>
 
@@ -28,7 +31,9 @@
     </a>
     <div class="links">
       {#each links as link}
-        <a href={link.href}>{link.label}</a>
+        <a href={link.href} class:support={link.support}>
+          {#if link.support}<Mug />{/if}{link.label}
+        </a>
       {/each}
     </div>
     <a class="btn btn-ghost small" href="#download">Download</a>
@@ -107,6 +112,18 @@
 
   .links a:hover {
     color: var(--starlight);
+  }
+
+  .links .support {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--peach);
+  }
+
+  .links .support :global(svg) {
+    width: 16px;
+    height: 16px;
   }
 
   .small {

@@ -16,6 +16,18 @@ export const steps = [
   },
 ];
 
+export const tandemModes = [
+  {
+    title: "Just play",
+    body: "Open your world and your friends join from their friends list. No server to rent, no ports to open, nothing to set up.",
+  },
+  {
+    title: "Keep the world synced",
+    tag: "Optional",
+    body: "Turn it on and Tandem keeps the latest copy of the world in the cloud. Whoever plays next gets it, so anyone in the group can host.",
+  },
+];
+
 export const launchers = ["Prism Launcher", "Modrinth App", "CurseForge", "Minecraft Launcher"];
 
 export const faq = [
@@ -26,6 +38,10 @@ export const faq = [
   {
     q: "Is it free?",
     a: "Yes. Atlas and Tandem are both free. Atlas is open source under the GPL-3.0 licence.",
+  },
+  {
+    q: "Does Tandem need a server?",
+    a: "No. Whoever opens the world hosts it from their own game, and friends join through their friends list. If you turn on world sync, the world is also saved to the cloud so the next person can host the latest copy.",
   },
   {
     q: "When can I get Tandem?",
@@ -47,3 +63,5 @@ export const faq = [
 
 export const disclaimer =
   "Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.";
+
+export const kofi = "https://ko-fi.com/haloxx";

@@ -4,7 +4,8 @@
   import AppWindow from "$lib/AppWindow.svelte";
   import Stars from "$lib/Stars.svelte";
   import Downloads from "$lib/Downloads.svelte";
-  import { steps, launchers, faq, disclaimer } from "$lib/content.js";
+  import Mug from "$lib/Mug.svelte";
+  import { steps, tandemModes, launchers, faq, disclaimer, kofi } from "$lib/content.js";
   import { liveRelease } from "$lib/release.js";
   import { onMount } from "svelte";
 
@@ -128,11 +129,19 @@
             <img class="product-logo" src="/brand/tandem-logo-on-dark.svg" alt="Tandem" width="128" height="34" />
             <span class="soon">In development</span>
           </div>
-          <h2>Your world keeps going when the host logs off.</h2>
+          <h2>Play together without renting a server.</h2>
           <p class="section-lede">
-            Atlas keeps the pack in sync. Tandem is the other half: a mod for the worlds you play
-            together, on the same accounts and friends list.
+            Tandem is a mod for the worlds you play with friends, on the same accounts and friends
+            list as Atlas.
           </p>
+          <div class="modes">
+            {#each tandemModes as mode}
+              <div class="mode">
+                <h3>{mode.title} {#if mode.tag}<span class="tag">{mode.tag}</span>{/if}</h3>
+                <p>{mode.body}</p>
+              </div>
+            {/each}
+          </div>
         </div>
       </div>
     </div>
@@ -151,6 +160,28 @@
             <p>{item.a}</p>
           </details>
         {/each}
+      </div>
+    </div>
+  </section>
+
+  <section id="support" class="support">
+    <div class="wrap">
+      <div class="support-card">
+        <div class="cup" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+            <path class="steam" d="M8 6.5c0-1 1-1.2 1-2.2" />
+            <path class="steam" d="M12 6.5c0-1 1-1.2 1-2.2" />
+          </svg>
+          <Mug />
+        </div>
+        <div>
+          <h2>Atlas is free. Keeping it running isn't.</h2>
+          <p class="section-lede">
+            If Atlas saved your group a few evenings of "which version of Create are you on", a
+            coffee helps pay for the sync server and keeps Tandem moving.
+          </p>
+        </div>
+        <a class="btn btn-primary" href={kofi}><Mug />Buy me a coffee</a>
       </div>
     </div>
   </section>
@@ -175,6 +206,7 @@
     </div>
     <nav>
       <a href="https://github.com/xhalo-dev/atlas">GitHub</a>
+      <a href={kofi}>Ko-fi</a>
       <a href="/terms">Terms</a>
       <a href="/privacy">Privacy</a>
     </nav>
@@ -356,7 +388,8 @@
     margin-bottom: 0;
   }
 
-  .soon {
+  .soon,
+  .tag {
     padding: 5px 12px;
     border: 1px solid rgb(196 181 253 / 0.3);
     border-radius: 999px;
@@ -364,6 +397,39 @@
     color: #c4b5fd;
     font-size: 13px;
     font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  .tag {
+    padding: 2px 10px;
+    font-size: 12px;
+    vertical-align: 2px;
+  }
+
+  .modes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .mode {
+    padding: 22px 24px;
+    border: 1px solid var(--space-line);
+    border-radius: 18px;
+    background: rgb(10 10 11 / 0.4);
+  }
+
+  .mode h3 {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  .mode p {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 16px;
   }
 
   .faq {
@@ -419,6 +485,74 @@
   details p {
     padding-bottom: 22px;
     color: var(--muted);
+  }
+
+  .support {
+    padding: 0 0 140px;
+  }
+
+  .support-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 40px;
+    align-items: center;
+    padding: clamp(32px, 5vw, 56px);
+    border: 1px solid var(--space-line);
+    border-radius: 28px;
+    background:
+      radial-gradient(60% 140% at 100% 0%, rgb(240 180 137 / 0.14), transparent 70%),
+      var(--space-raise);
+  }
+
+  .support-card h2 {
+    font-size: clamp(28px, 3vw, 38px);
+  }
+
+  .support-card .section-lede {
+    margin-top: 12px;
+    font-size: 17px;
+  }
+
+  .cup {
+    position: relative;
+    width: 84px;
+    aspect-ratio: 1;
+    color: var(--peach);
+  }
+
+  .cup::before {
+    content: "";
+    position: absolute;
+    inset: -30%;
+    background: radial-gradient(closest-side, rgb(240 180 137 / 0.3), transparent);
+    filter: blur(14px);
+  }
+
+  .cup :global(svg) {
+    position: absolute;
+    inset: 10%;
+    width: 80%;
+    height: 80%;
+  }
+
+  .steam {
+    animation: rise 2.8s ease-in-out infinite;
+  }
+
+  .steam + .steam {
+    animation-delay: 0.5s;
+  }
+
+  @keyframes rise {
+    0%,
+    100% {
+      opacity: 0.2;
+      translate: 0 2px;
+    }
+    50% {
+      opacity: 1;
+      translate: 0 -2px;
+    }
   }
 
   .final {
@@ -491,8 +625,15 @@
   @media (max-width: 900px) {
     .atlas-grid,
     .faq-grid,
-    .tandem-card {
+    .tandem-card,
+    .modes,
+    .support-card {
       grid-template-columns: 1fr;
+    }
+
+    .support-card {
+      gap: 28px;
+      justify-items: start;
     }
 
     .tandem-mark {

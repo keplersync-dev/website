@@ -22,7 +22,8 @@
     <p class="tagline">Your packs and worlds, in sync.</p>
     <p class="lede">
       Two free companions for playing Minecraft with friends. Atlas keeps everyone's modpack
-      identical. Tandem keeps your shared world going when the host logs off.
+      identical. Tandem lets you play together without a server, and can keep your world synced
+      so anyone can host it.
     </p>
     <div class="cta" id="download">
       <Downloads {release} />

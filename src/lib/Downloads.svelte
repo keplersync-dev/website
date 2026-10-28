@@ -27,7 +27,7 @@
       <img src="/brand/tandem-mark.svg" alt="" width="36" height="36" />
       <div>
         <p class="name">Tandem</p>
-        <p class="what">Keeps your world going</p>
+        <p class="what">Play together, no server</p>
       </div>
     </div>
     <span class="btn btn-disabled">Coming soon</span>
