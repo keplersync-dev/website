@@ -13,7 +13,7 @@
     { href: "#atlas", label: "Atlas" },
     { href: "#tandem", label: "Tandem" },
     { href: "#faq", label: "FAQ" },
-    { href: "https://github.com/xhalo-dev/atlas", label: "GitHub" },
+    { href: "https://github.com/keplersync-dev/atlas", label: "GitHub" },
     { href: kofi, label: "Support", support: true },
   ];
 </script>

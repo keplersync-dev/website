@@ -1,5 +1,5 @@
-const RELEASES = "https://github.com/xhalo-dev/atlas/releases/latest";
-const API = "https://api.github.com/repos/xhalo-dev/atlas/releases/latest";
+const RELEASES = "https://github.com/keplersync-dev/atlas/releases/latest";
+const API = "https://api.github.com/repos/keplersync-dev/atlas/releases/latest";
 
 export const fallback = { version: null, url: RELEASES, size: null };
 

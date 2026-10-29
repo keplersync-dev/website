@@ -29,7 +29,7 @@
     name: "KeplerSync",
     url: "https://keplersync.app/",
     logo: "https://keplersync.app/android-chrome-512.png",
-    sameAs: ["https://github.com/xhalo-dev/atlas"],
+    sameAs: ["https://github.com/keplersync-dev/atlas"],
   };
 
   const structuredData = $derived(
@@ -205,7 +205,7 @@
       <p>{disclaimer}</p>
     </div>
     <nav>
-      <a href="https://github.com/xhalo-dev/atlas">GitHub</a>
+      <a href="https://github.com/keplersync-dev/atlas">GitHub</a>
       <a href={kofi}>Ko-fi</a>
       <a href="/terms">Terms</a>
       <a href="/privacy">Privacy</a>

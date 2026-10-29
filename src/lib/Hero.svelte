@@ -13,7 +13,7 @@
 
   <div class="wrap content">
     {#if release.version}
-      <a class="pill" href="https://github.com/xhalo-dev/atlas/releases/latest">
+      <a class="pill" href="https://github.com/keplersync-dev/atlas/releases/latest">
         <span class="dot"></span>
         Atlas {release.version} is out
       </a>
