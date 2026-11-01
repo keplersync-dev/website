@@ -45,6 +45,19 @@
           publisher: { "@id": organization["@id"] },
         },
         {
+          "@type": "WebPage",
+          "@id": "https://keplersync.app/#webpage",
+          url: "https://keplersync.app/",
+          name: title,
+          isPartOf: { "@id": "https://keplersync.app/#website" },
+          primaryImageOfPage: {
+            "@type": "ImageObject",
+            url: "https://keplersync.app/thumbnail.png",
+            width: 1200,
+            height: 1200,
+          },
+        },
+        {
           "@type": "SoftwareApplication",
           name: "Atlas",
           description:
