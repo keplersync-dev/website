@@ -55,10 +55,6 @@ export const faq = [
     q: "Where do the mods come from?",
     a: "From Modrinth and CurseForge directly. A few CurseForge mods only allow downloads from their own page, so Atlas opens it for you and picks the file up from your Downloads folder. It only uploads files that aren't on either site, like your configs.",
   },
-  {
-    q: "Windows says it protected my PC. Is Atlas safe?",
-    a: "Windows shows that warning for apps from small developers who haven't bought a code-signing certificate yet. Click More info, then Run anyway. Atlas is open source, so you can read every line on GitHub.",
-  },
 ];
 
 export const disclaimer =
