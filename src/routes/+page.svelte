@@ -5,7 +5,7 @@
   import Stars from "$lib/Stars.svelte";
   import Downloads from "$lib/Downloads.svelte";
   import Mug from "$lib/Mug.svelte";
-  import { steps, tandemModes, launchers, faq, disclaimer, kofi } from "$lib/content.js";
+  import { steps, tandemModes, launchers, faq, disclaimer, kofi, discord } from "$lib/content.js";
   import { liveRelease } from "$lib/release.js";
   import { onMount } from "svelte";
 
@@ -175,6 +175,15 @@
             <p>{item.a}</p>
           </details>
         {/each}
+        {#if discord}
+          <div class="ask">
+            <div>
+              <h3>Still stuck?</h3>
+              <p>Ask in the Discord server. Bug reports and ideas are welcome too.</p>
+            </div>
+            <a class="btn btn-ghost" href={discord}>Join the Discord</a>
+          </div>
+        {/if}
       </div>
     </div>
   </section>
@@ -221,6 +230,7 @@
     </div>
     <nav>
       <a href="https://github.com/keplersync-dev/atlas">GitHub</a>
+      {#if discord}<a href={discord}>Discord</a>{/if}
       <a href={kofi}>Ko-fi</a>
       <a href="/terms">Terms</a>
       <a href="/privacy">Privacy</a>
@@ -500,6 +510,31 @@
   details p {
     padding-bottom: 22px;
     color: var(--muted);
+  }
+
+  .ask {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px 32px;
+    margin-top: 40px;
+    padding: 24px 28px;
+    border: 1px solid var(--space-line);
+    border-radius: 18px;
+    background: var(--space-raise);
+  }
+
+  .ask h3 {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  .ask p {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 16px;
   }
 
   .support {

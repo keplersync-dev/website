@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import Mug from "./Mug.svelte";
-  import { kofi } from "./content.js";
+  import { discord, kofi } from "./content.js";
 
   let scrollY = $state(0);
   let open = $state(false);
@@ -14,6 +14,7 @@
     { href: "#tandem", label: "Tandem" },
     { href: "#faq", label: "FAQ" },
     { href: "https://github.com/keplersync-dev/atlas", label: "GitHub" },
+    ...(discord ? [{ href: discord, label: "Discord" }] : []),
     { href: kofi, label: "Support", support: true },
   ];
 </script>

@@ -61,3 +61,5 @@ export const disclaimer =
   "Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.";
 
 export const kofi = "https://ko-fi.com/haloxx";
+
+export const discord = "https://discord.gg/mXJnFe65Eq";
