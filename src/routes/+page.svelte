@@ -3,9 +3,10 @@
   import Hero from "$lib/Hero.svelte";
   import AppWindow from "$lib/AppWindow.svelte";
   import Stars from "$lib/Stars.svelte";
-  import Downloads from "$lib/Downloads.svelte";
+  import TandemWindow from "$lib/TandemWindow.svelte";
+  import DiscordIcon from "$lib/DiscordIcon.svelte";
   import Mug from "$lib/Mug.svelte";
-  import { steps, tandemModes, launchers, faq, disclaimer, kofi, discord } from "$lib/content.js";
+  import { steps, tandemFeatures, launchers, faq, disclaimer, kofi, discord } from "$lib/content.js";
   import { liveRelease } from "$lib/release.js";
   import { onMount } from "svelte";
 
@@ -21,7 +22,7 @@
 
   const title = "KeplerSync · Keep Minecraft modpacks in sync with friends";
   const description =
-    "Keep your Minecraft modpack identical on every friend's PC. Atlas works alongside Prism, Modrinth App, CurseForge and the Minecraft Launcher. Free.";
+    "Atlas keeps your Minecraft modpack the same on every friend's PC, alongside Prism, the Modrinth App, CurseForge and the Minecraft Launcher. Tandem lets you play your worlds together without a server. Free.";
 
   const organization = {
     "@type": "Organization",
@@ -30,7 +31,7 @@
     alternateName: "Kepler Sync",
     url: "https://keplersync.app/",
     logo: "https://keplersync.app/android-chrome-512.png",
-    sameAs: ["https://github.com/keplersync-dev/atlas"],
+    sameAs: ["https://github.com/keplersync-dev"],
   };
 
   const structuredData = $derived(
@@ -98,18 +99,17 @@
 
 <main>
   <section id="atlas" class="atlas">
-    <div class="wrap atlas-grid">
-      <div>
+    <div class="wrap split">
+      <div class="copy">
         <img class="product-logo" src="/brand/atlas-logo-on-dark.svg" alt="Atlas" width="106" height="34" />
-        <h2>Everyone on the same mods, every time.</h2>
+        <h2>Everyone on the same mods.</h2>
         <p class="section-lede">
-          Atlas is a small Windows app that watches a modpack and keeps every friend's copy
-          matching. It works with the launcher you already use.
+          Works with {launchers.slice(0, -1).join(", ")} and {launchers.at(-1)}.
         </p>
         <ol class="steps">
-          {#each steps as step}
+          {#each steps as step, i}
             <li>
-              <span class="n">{step.n}</span>
+              <span class="n">{i + 1}</span>
               <div>
                 <h3>{step.title}</h3>
                 <p>{step.body}</p>
@@ -118,47 +118,48 @@
           {/each}
         </ol>
       </div>
-      <div class="shot">
+      <div class="shot atlas-shot">
         <AppWindow />
       </div>
-    </div>
-
-    <div class="wrap launchers">
-      <p>Works alongside</p>
-      <ul>
-        {#each launchers as name}
-          <li>{name}</li>
-        {/each}
-      </ul>
     </div>
   </section>
 
   <section id="tandem" class="tandem">
-    <div class="wrap">
-      <div class="tandem-card">
-        <div class="tandem-mark" aria-hidden="true">
-          <img src="/brand/tandem-mark.svg" alt="" width="200" height="200" />
-        </div>
-        <div>
-          <div class="tandem-head">
-            <img class="product-logo" src="/brand/tandem-logo-on-dark.svg" alt="Tandem" width="128" height="34" />
-            <span class="soon">In development</span>
-          </div>
-          <h2>Play together without renting a server.</h2>
-          <p class="section-lede">
-            Tandem is a mod for the worlds you play with friends, on the same accounts and friends
-            list as Atlas.
-          </p>
-          <div class="modes">
-            {#each tandemModes as mode}
-              <div class="mode">
-                <h3>{mode.title} {#if mode.tag}<span class="tag">{mode.tag}</span>{/if}</h3>
-                <p>{mode.body}</p>
-              </div>
-            {/each}
-          </div>
-        </div>
+    <div class="wrap split reverse">
+      <div class="shot tandem-shot">
+        <TandemWindow />
       </div>
+      <div class="copy">
+        <div class="tandem-head">
+          <img class="product-logo" src="/brand/tandem-logo-on-dark.svg" alt="Tandem" width="128" height="34" />
+          <span class="beta">Beta</span>
+        </div>
+        <h2>Play together without a server.</h2>
+        <p class="section-lede">Open your world. Friends join from their friends list.</p>
+        <div class="features">
+          {#each tandemFeatures as f}
+            <div class="feature">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                {#if f.icon === "play"}<path d="M8 5v14l11-7z" />
+                {:else if f.icon === "cloud"}<path d="M7 18a5 5 0 0 1-.5-9.98A6 6 0 0 1 18 9a4.5 4.5 0 0 1-.5 9z" />
+                {:else}<path d="M3 12a9 9 0 1 0 3-6.7L3 8" /><path d="M3 3v5h5" /><path d="M12 7v5l3 2" />{/if}
+              </svg>
+              <div>
+                <h3>{f.title}{#if f.tag}<span class="tag">{f.tag}</span>{/if}</h3>
+                <p>{f.body}</p>
+              </div>
+            </div>
+          {/each}
+        </div>
+        <a class="btn btn-violet" href={discord}><DiscordIcon />Get the beta on Discord</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="promise">
+    <div class="wrap">
+      <img src="/brand/keplersync-mark-white.svg" alt="" width="44" height="44" loading="lazy" />
+      <p>Atlas syncs your modpacks.<br />Tandem syncs your worlds.</p>
     </div>
   </section>
 
@@ -167,23 +168,16 @@
       <div>
         <p class="eyebrow">Questions</p>
         <h2>Good to know</h2>
+        <p class="faq-ask">Stuck? Ask in the Discord.</p>
+        <a class="btn btn-ghost" href={discord}>Join the Discord</a>
       </div>
       <div class="qs">
-        {#each faq as item}
-          <details>
+        {#each faq as item, i}
+          <details open={i === 0}>
             <summary>{item.q}</summary>
             <p>{item.a}</p>
           </details>
         {/each}
-        {#if discord}
-          <div class="ask">
-            <div>
-              <h3>Still stuck?</h3>
-              <p>Ask in the Discord server. Bug reports and ideas are welcome too.</p>
-            </div>
-            <a class="btn btn-ghost" href={discord}>Join the Discord</a>
-          </div>
-        {/if}
       </div>
     </div>
   </section>
@@ -199,13 +193,10 @@
           <Mug />
         </div>
         <div>
-          <h2>Atlas is free. Keeping it running isn't.</h2>
-          <p class="section-lede">
-            If Atlas saved your group a few evenings of "which version of Create are you on", a
-            coffee helps pay for the sync server and keeps Tandem moving.
-          </p>
+          <h2>Help keep the servers running.</h2>
+          <p class="section-lede">If Atlas or Tandem saves your group some hassle, a coffee goes a long way.</p>
         </div>
-        <a class="btn btn-primary" href={kofi}><Mug />Buy me a coffee</a>
+        <a class="btn btn-peach" href={kofi}><Mug />Buy me a coffee</a>
       </div>
     </div>
   </section>
@@ -213,10 +204,14 @@
   <section class="final">
     <Stars count={90} seed={21} />
     <div class="wrap final-inner">
-      <img src="/brand/keplersync-mark-white.svg" alt="" width="56" height="56" />
       <h2>Get your friends in sync.</h2>
-      <div class="final-downloads">
-        <Downloads {release} />
+      <div class="final-buttons">
+        <a class="btn btn-primary" href="#download">
+          <img src="/brand/atlas-mark.svg" alt="" width="18" height="18" loading="lazy" />Download Atlas
+        </a>
+        <a class="btn btn-ghost tandem-ghost" href={discord}>
+          <img src="/brand/tandem-mark.svg" alt="" width="18" height="18" loading="lazy" />Get the Tandem beta
+        </a>
       </div>
     </div>
   </section>
@@ -228,8 +223,8 @@
       <img src="/brand/keplersync-logo-white.svg" alt="KeplerSync" width="104" height="22" loading="lazy" />
       <p>{disclaimer}</p>
     </div>
-    <nav>
-      <a href="https://github.com/keplersync-dev/atlas">GitHub</a>
+    <nav aria-label="Footer">
+      <a href="https://github.com/keplersync-dev">GitHub</a>
       {#if discord}<a href={discord}>Discord</a>{/if}
       <a href={kofi}>Ko-fi</a>
       <a href="/terms">Terms</a>
@@ -244,231 +239,219 @@
   }
 
   h2 {
-    font-size: clamp(34px, 4.4vw, 54px);
+    font-size: clamp(34px, 4.4vw, 56px);
     font-weight: 800;
+    letter-spacing: -0.035em;
   }
 
   .section-lede {
-    max-width: 34em;
+    max-width: 32em;
     margin-top: 18px;
     color: var(--muted);
     font-size: 18px;
   }
 
-  .atlas {
-    padding: 40px 0 120px;
+  .product-logo {
+    display: block;
+    height: 32px;
+    width: auto;
   }
 
-  .atlas-grid {
+  .copy h2 {
+    margin-top: 28px;
+  }
+
+  .split {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
     gap: clamp(40px, 6vw, 88px);
     align-items: center;
   }
 
-  .product-logo {
-    display: block;
-    height: 34px;
-    width: auto;
-    margin-bottom: 28px;
-  }
-
-  .steps {
-    display: grid;
-    gap: 26px;
-    margin: 44px 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .steps li {
-    display: grid;
-    grid-template-columns: 44px 1fr;
-    gap: 6px;
-  }
-
-  .n {
-    padding-top: 2px;
-    color: var(--cyan);
-    font-size: 14px;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .steps h3 {
-    font-size: 19px;
-    font-weight: 700;
-    letter-spacing: -0.015em;
-  }
-
-  .steps p {
-    margin-top: 6px;
-    color: var(--muted);
-    font-size: 16px;
+  .split.reverse {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
   }
 
   .shot {
     position: relative;
   }
 
-  .shot::before {
+  .atlas-shot::before {
     content: "";
     position: absolute;
-    inset: -10% -6%;
+    inset: -12% -8%;
     z-index: -1;
-    background: radial-gradient(closest-side, rgb(34 211 238 / 0.1), transparent);
+    background: radial-gradient(closest-side, rgb(34 211 238 / 0.12), transparent);
   }
 
-  .launchers {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 16px 28px;
-    margin-top: 96px;
-    padding-top: 32px;
-    border-top: 1px solid var(--space-line);
+  .atlas {
+    padding: 40px 0 140px;
   }
 
-  .launchers p {
-    color: var(--faint);
-    font-size: 14px;
-  }
-
-  .launchers ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 0;
+  .steps {
+    display: grid;
+    gap: 24px;
+    margin: 40px 0 0;
     padding: 0;
     list-style: none;
   }
 
-  .launchers li {
-    padding: 8px 16px;
-    border: 1px solid var(--space-line);
-    border-radius: 999px;
-    color: #c9ccd3;
-    font-size: 14px;
+  .steps li {
+    display: flex;
+    gap: 18px;
   }
 
-  .tandem {
-    padding: 40px 0 120px;
-  }
-
-  .tandem-card {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 56px;
-    align-items: center;
-    padding: clamp(32px, 5vw, 64px);
-    border: 1px solid var(--space-line);
-    border-radius: 28px;
-    background:
-      radial-gradient(60% 120% at 0% 100%, rgb(139 92 246 / 0.14), transparent 70%),
-      var(--space-raise);
-  }
-
-  .tandem-mark {
-    position: relative;
-    width: 200px;
-    aspect-ratio: 1;
+  .n {
+    flex: none;
     display: grid;
     place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: rgb(122 229 245 / 0.1);
+    color: var(--cyan-light);
+    font-size: 14px;
+    font-weight: 700;
   }
 
-  .tandem-mark::before {
-    content: "";
-    position: absolute;
-    inset: -20%;
-    background: radial-gradient(closest-side, rgb(139 92 246 / 0.28), transparent);
-    filter: blur(20px);
-  }
-
-  .tandem-mark img {
-    position: relative;
-    width: 76%;
-    height: auto;
-    animation: lead 3.2s ease-in-out infinite;
-  }
-
-  @keyframes lead {
-    0%,
-    100% {
-      translate: -4px 0;
-    }
-    50% {
-      translate: 4px 0;
-    }
-  }
-
-  .tandem-head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-
-  .tandem-head .product-logo {
-    margin-bottom: 0;
-  }
-
-  .soon,
-  .tag {
-    padding: 5px 12px;
-    border: 1px solid rgb(196 181 253 / 0.3);
-    border-radius: 999px;
-    background: rgb(139 92 246 / 0.1);
-    color: #c4b5fd;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0;
-  }
-
-  .tag {
-    padding: 2px 10px;
-    font-size: 12px;
-    vertical-align: 2px;
-  }
-
-  .modes {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 32px;
-  }
-
-  .mode {
-    padding: 22px 24px;
-    border: 1px solid var(--space-line);
-    border-radius: 18px;
-    background: rgb(10 10 11 / 0.4);
-  }
-
-  .mode h3 {
-    font-size: 19px;
+  .steps h3,
+  .feature h3 {
+    font-size: 18px;
     font-weight: 700;
     letter-spacing: -0.015em;
   }
 
-  .mode p {
-    margin-top: 6px;
+  .steps p {
+    margin-top: 4px;
     color: var(--muted);
     font-size: 16px;
   }
 
+  .tandem {
+    padding: 120px 0 140px;
+    border-block: 1px solid rgb(167 139 250 / 0.12);
+    background:
+      radial-gradient(70% 60% at 30% 40%, rgb(124 58 237 / 0.16), transparent 70%),
+      #0c0b10;
+  }
+
+  .tandem-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .beta,
+  .tag {
+    padding: 3px 10px;
+    border: 1px solid rgb(167 139 250 / 0.35);
+    border-radius: 999px;
+    background: rgb(167 139 250 / 0.16);
+    color: var(--violet-light);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  .tag {
+    margin-left: 8px;
+    padding: 2px 8px;
+    border: 0;
+    background: rgb(245 245 244 / 0.08);
+    color: var(--muted);
+    font-size: 11px;
+    vertical-align: 2px;
+  }
+
+  .features {
+    display: grid;
+    gap: 14px;
+    margin: 36px 0 32px;
+  }
+
+  .feature {
+    display: flex;
+    gap: 16px;
+    padding: 18px;
+    border: 1px solid rgb(245 245 244 / 0.07);
+    border-radius: 14px;
+    background: rgb(245 245 244 / 0.03);
+  }
+
+  .feature svg {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    margin-top: 2px;
+    fill: none;
+    stroke: var(--violet-light);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .feature h3 {
+    font-size: 17px;
+  }
+
+  .feature p {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  .btn-violet {
+    background: var(--violet);
+    color: var(--violet-ink);
+    font-weight: 700;
+  }
+
+  .btn-violet:hover {
+    background: var(--violet-light);
+    box-shadow: 0 0 32px 2px rgb(167 139 250 / 0.35);
+  }
+
+  .btn-violet :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+
+  .promise {
+    padding: 120px 0;
+    text-align: center;
+  }
+
+  .promise img {
+    opacity: 0.9;
+  }
+
+  .promise p {
+    margin-top: 24px;
+    font-size: clamp(26px, 3.2vw, 40px);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+  }
+
   .faq {
-    padding: 0 0 140px;
+    padding: 40px 0 120px;
   }
 
   .faq-grid {
     display: grid;
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-    gap: 48px;
+    gap: clamp(32px, 6vw, 88px);
   }
 
-  .faq .eyebrow {
-    margin-bottom: 14px;
+  .faq h2 {
+    margin-top: 12px;
+    font-size: clamp(34px, 4vw, 48px);
+  }
+
+  .faq-ask {
+    margin: 16px 0 20px;
+    color: var(--muted);
+    font-size: 16px;
   }
 
   details {
@@ -483,8 +466,8 @@
     display: flex;
     justify-content: space-between;
     gap: 16px;
-    padding: 22px 0;
-    font-size: 18px;
+    padding: 20px 0;
+    font-size: 17px;
     font-weight: 600;
     cursor: pointer;
     list-style: none;
@@ -508,81 +491,50 @@
   }
 
   details p {
-    padding-bottom: 22px;
-    color: var(--muted);
-  }
-
-  .ask {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px 32px;
-    margin-top: 40px;
-    padding: 24px 28px;
-    border: 1px solid var(--space-line);
-    border-radius: 18px;
-    background: var(--space-raise);
-  }
-
-  .ask h3 {
-    font-size: 19px;
-    font-weight: 700;
-    letter-spacing: -0.015em;
-  }
-
-  .ask p {
-    margin-top: 4px;
+    padding-bottom: 20px;
     color: var(--muted);
     font-size: 16px;
   }
 
   .support {
-    padding: 0 0 140px;
+    padding: 0 0 120px;
   }
 
   .support-card {
     display: grid;
     grid-template-columns: auto 1fr auto;
-    gap: 40px;
+    gap: 28px 36px;
     align-items: center;
-    padding: clamp(32px, 5vw, 56px);
-    border: 1px solid var(--space-line);
-    border-radius: 28px;
-    background:
-      radial-gradient(60% 140% at 100% 0%, rgb(240 180 137 / 0.14), transparent 70%),
-      var(--space-raise);
+    padding: clamp(28px, 4vw, 44px);
+    border: 1px solid rgb(243 217 196 / 0.25);
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgb(243 217 196 / 0.12), rgb(240 180 137 / 0.04) 50%, rgb(17 17 20 / 0.9));
   }
 
   .support-card h2 {
-    font-size: clamp(28px, 3vw, 38px);
+    font-size: clamp(28px, 3.2vw, 40px);
+    line-height: 1.1;
   }
 
   .support-card .section-lede {
-    margin-top: 12px;
+    margin-top: 10px;
     font-size: 17px;
   }
 
   .cup {
     position: relative;
-    width: 84px;
+    width: 72px;
     aspect-ratio: 1;
+    border-radius: 20px;
+    background: rgb(243 217 196 / 0.14);
     color: var(--peach);
-  }
-
-  .cup::before {
-    content: "";
-    position: absolute;
-    inset: -30%;
-    background: radial-gradient(closest-side, rgb(240 180 137 / 0.3), transparent);
-    filter: blur(14px);
   }
 
   .cup :global(svg) {
     position: absolute;
-    inset: 10%;
-    width: 80%;
-    height: 80%;
+    inset: 18%;
+    width: 64%;
+    height: 64%;
   }
 
   .steam {
@@ -605,11 +557,30 @@
     }
   }
 
+  .btn-peach {
+    height: 52px;
+    padding: 0 26px;
+    background: var(--peach);
+    color: var(--space);
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .btn-peach:hover {
+    background: #fbe7d6;
+    box-shadow: 0 0 32px 2px rgb(240 180 137 / 0.35);
+  }
+
+  .btn-peach :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+
   .final {
     overflow: clip;
-    padding: 140px 0;
+    padding: 100px 0 120px;
     border-top: 1px solid var(--space-line);
-    background: radial-gradient(50% 80% at 50% 100%, rgb(240 180 137 / 0.12), transparent 70%);
+    text-align: center;
   }
 
   .final-inner {
@@ -617,14 +588,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 28px;
-    text-align: center;
   }
 
-  .final-downloads {
-    width: 100%;
-    max-width: 600px;
-    text-align: left;
+  .final h2 {
+    font-size: clamp(36px, 5vw, 64px);
+    letter-spacing: -0.04em;
+  }
+
+  .final-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 36px;
+  }
+
+  .tandem-ghost {
+    border-color: rgb(167 139 250 / 0.4);
+    color: #e9e3ff;
+  }
+
+  .tandem-ghost:hover {
+    border-color: rgb(167 139 250 / 0.7);
+    background: rgb(167 139 250 / 0.08);
   }
 
   footer {
@@ -656,7 +642,8 @@
 
   footer nav {
     display: flex;
-    gap: 24px;
+    flex-wrap: wrap;
+    gap: 0 24px;
     font-size: 14px;
   }
 
@@ -672,22 +659,22 @@
     color: var(--starlight);
   }
 
-  @media (max-width: 900px) {
-    .atlas-grid,
-    .faq-grid,
-    .tandem-card,
-    .modes,
-    .support-card {
+  @media (max-width: 960px) {
+    .split,
+    .split.reverse,
+    .faq-grid {
       grid-template-columns: 1fr;
     }
 
-    .support-card {
-      gap: 28px;
-      justify-items: start;
+    .split.reverse .shot {
+      order: 2;
     }
+  }
 
-    .tandem-mark {
-      width: 120px;
+  @media (max-width: 760px) {
+    .support-card {
+      grid-template-columns: 1fr;
+      justify-items: start;
     }
   }
 </style>

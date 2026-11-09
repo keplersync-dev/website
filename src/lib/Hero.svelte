@@ -7,24 +7,11 @@
 
 <section class="hero">
   <Stars />
-  <div class="planet" aria-hidden="true">
-    <img src="/brand/mark-glass.svg" alt="" width="640" height="640" />
-  </div>
+  <div class="glow" aria-hidden="true"></div>
 
   <div class="wrap content">
-    {#if release.version}
-      <a class="pill" href="https://github.com/keplersync-dev/atlas/releases/latest">
-        <span class="dot"></span>
-        Atlas {release.version} is out
-      </a>
-    {/if}
-    <h1>KeplerSync</h1>
-    <p class="tagline">Your packs and worlds, in sync.</p>
-    <p class="lede">
-      Two free companions for playing Minecraft with friends. Atlas keeps everyone's modpack
-      identical. Tandem lets you play together without a server, and can keep your world synced
-      so anyone can host it.
-    </p>
+    <h1>Your packs and worlds, in sync.</h1>
+    <p class="lede">Two free tools for playing Minecraft with friends.</p>
     <div class="cta" id="download">
       <Downloads {release} />
     </div>
@@ -36,109 +23,57 @@
 <style>
   .hero {
     position: relative;
-    display: flex;
-    align-items: center;
-    min-height: max(100svh, 720px);
-    padding: 120px 0 180px;
     overflow: clip;
     isolation: isolate;
+    padding: clamp(150px, 18vw, 200px) 0 clamp(220px, 22vw, 300px);
+    text-align: center;
     background:
-      radial-gradient(60% 70% at 85% 45%, rgb(240 180 137 / 0.07), transparent 70%),
+      radial-gradient(50% 45% at 50% 25%, rgb(243 217 196 / 0.07), transparent 70%),
       radial-gradient(80% 60% at 50% 110%, rgb(90 97 112 / 0.18), transparent 70%),
       var(--space);
   }
 
-  .planet {
+  .glow {
     position: absolute;
     z-index: -1;
-    top: 50%;
-    right: clamp(-340px, -17vw, -60px);
-    width: min(58vw, 890px);
+    left: 50%;
+    top: 40px;
+    width: min(820px, 120vw);
     aspect-ratio: 1;
-    translate: 0 -50%;
-    animation: drift 18s ease-in-out infinite alternate;
-  }
-
-  .planet::before {
-    content: "";
-    position: absolute;
-    inset: 4%;
-    border-radius: 50%;
-    background: radial-gradient(closest-side, rgb(243 217 196 / 0.14), rgb(243 217 196 / 0.05) 60%, transparent);
-  }
-
-  .planet img {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-
-  @keyframes drift {
-    from {
-      transform: rotate(-2deg) translateY(-8px);
-    }
-    to {
-      transform: rotate(2deg) translateY(8px);
-    }
+    translate: -50% 0;
+    opacity: 0.22;
+    background: radial-gradient(closest-side, rgb(243 217 196 / 0.25), transparent 70%);
   }
 
   .content {
     position: relative;
-  }
-
-  .pill {
-    display: inline-flex;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 10px;
-    height: 36px;
-    padding: 0 16px;
-    margin-bottom: 28px;
-    border: 1px solid rgb(243 217 196 / 0.28);
-    border-radius: 999px;
-    background: rgb(243 217 196 / 0.06);
-    color: var(--peach);
-    font-size: 14px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: border-color 0.2s;
-  }
-
-  .pill:hover {
-    border-color: rgb(243 217 196 / 0.55);
-  }
-
-  .dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--horizon);
-    box-shadow: 0 0 10px var(--horizon);
   }
 
   h1 {
-    font-size: clamp(64px, 10.5vw, 148px);
-    font-weight: 900;
+    max-width: 13em;
+    font-size: clamp(44px, 7.4vw, 96px);
+    font-weight: 800;
+    line-height: 1.02;
     letter-spacing: -0.045em;
-    line-height: 0.95;
-  }
-
-  .tagline {
-    margin-top: 18px;
-    font-size: clamp(22px, 2.6vw, 34px);
-    font-weight: 400;
-    letter-spacing: -0.015em;
-    color: #c9ccd3;
   }
 
   .lede {
-    max-width: 30em;
-    margin-top: 22px;
+    max-width: 36em;
+    margin-top: 24px;
     color: var(--muted);
+    font-size: clamp(17px, 1.6vw, 20px);
   }
 
   .cta {
-    margin-top: 36px;
+    width: 100%;
+    max-width: 860px;
+    margin-top: 48px;
     scroll-margin-top: 96px;
+    text-align: left;
   }
 
   .horizon {
@@ -177,33 +112,5 @@
     translate: -50% -50%;
     border-radius: 50%;
     background: radial-gradient(closest-side, rgb(255 244 232 / 0.9), rgb(240 180 137 / 0.25) 40%, transparent);
-  }
-
-  @media (max-width: 380px) {
-    h1 {
-      font-size: 17vw;
-    }
-  }
-
-  @media (max-width: 860px) and (orientation: portrait) {
-    .hero {
-      align-items: flex-end;
-      padding-top: calc(72px + min(72vw, 420px));
-    }
-
-    .planet {
-      top: 56px;
-      right: max(-24vw, -140px);
-      width: min(96vw, 560px);
-      translate: 0;
-      opacity: 0.9;
-    }
-  }
-
-  @media (max-height: 500px) and (orientation: landscape) {
-    .hero {
-      min-height: 100svh;
-      padding: 96px 0 140px;
-    }
   }
 </style>

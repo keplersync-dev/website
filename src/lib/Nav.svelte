@@ -13,8 +13,8 @@
     { href: "#atlas", label: "Atlas" },
     { href: "#tandem", label: "Tandem" },
     { href: "#faq", label: "FAQ" },
-    { href: "https://github.com/keplersync-dev/atlas", label: "GitHub" },
     ...(discord ? [{ href: discord, label: "Discord" }] : []),
+    { href: "https://github.com/keplersync-dev", label: "GitHub" },
     { href: kofi, label: "Support", support: true },
   ];
 </script>
@@ -26,9 +26,8 @@
 
 <header class:scrolled>
   <nav class="wrap" aria-label="Main">
-    <a class="brand" href="/" aria-label="KeplerSync home">
-      <img src="/brand/keplersync-mark-white.svg" alt="" width="28" height="28" />
-      <span>KeplerSync</span>
+    <a class="brand" href="/">
+      <img src="/brand/keplersync-logo-white.svg" alt="KeplerSync" width="132" height="28" />
     </a>
     <div class="links">
       {#each links as link}
@@ -37,7 +36,8 @@
         </a>
       {/each}
     </div>
-    <a class="btn btn-ghost small" href="#download">Download</a>
+    <a class="btn btn-ghost small beta" href="#tandem">Tandem beta</a>
+    <a class="btn btn-primary small" href="#download">Download</a>
     <button
       class="menu-toggle"
       aria-label={open ? "Close menu" : "Open menu"}
@@ -90,12 +90,13 @@
   .brand {
     display: flex;
     align-items: center;
-    gap: 10px;
     min-height: 44px;
-    font-size: 17px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    text-decoration: none;
+  }
+
+  .brand img {
+    display: block;
+    height: 28px;
+    width: auto;
   }
 
   .links {
@@ -131,6 +132,17 @@
     height: 40px;
     padding: 0 16px;
     font-size: 14px;
+  }
+
+  .beta {
+    margin-right: -22px;
+    border-color: rgb(167 139 250 / 0.35);
+    color: var(--violet-light);
+  }
+
+  .beta:hover {
+    border-color: rgb(167 139 250 / 0.7);
+    background: rgb(167 139 250 / 0.08);
   }
 
   .menu-toggle {
@@ -175,6 +187,10 @@
       display: none;
     }
 
+    .beta {
+      display: none;
+    }
+
     .small {
       margin-left: auto;
     }
@@ -190,9 +206,4 @@
     }
   }
 
-  @media (max-width: 359px) {
-    .brand span {
-      display: none;
-    }
-  }
 </style>

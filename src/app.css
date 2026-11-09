@@ -11,6 +11,9 @@
   --cyan: #22d3ee;
   --cyan-light: #7ae5f5;
   --cyan-dark: #1aa4b9;
+  --violet: #a78bfa;
+  --violet-light: #c4b5fd;
+  --violet-ink: #1a1033;
 
   --font: "Inter Variable", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
   --wrap: 1160px;

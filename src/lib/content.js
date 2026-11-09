@@ -1,60 +1,24 @@
 export const steps = [
-  {
-    n: "01",
-    title: "Point Atlas at a pack",
-    body: "Pick an instance from Prism, the Modrinth App, CurseForge, or the Minecraft Launcher. Atlas reads what's already there.",
-  },
-  {
-    n: "02",
-    title: "Share it with friends",
-    body: "Add friends with their friend code, then share the pack with them or a whole group. Atlas fetches each mod from Modrinth or CurseForge.",
-  },
-  {
-    n: "03",
-    title: "Change it, they get it",
-    body: "Add, update, or remove a mod and everyone's copy follows. No zip files in Discord, no version mismatches on join.",
-  },
+  { title: "Pick a pack", body: "Choose an instance from your launcher." },
+  { title: "Share it", body: "Add friends by their friend code." },
+  { title: "Change it", body: "Everyone's copy updates." },
 ];
 
-export const tandemModes = [
-  {
-    title: "Just play",
-    body: "Open your world and your friends join from their friends list. No server to rent, no ports to open, nothing to set up.",
-  },
-  {
-    title: "Keep the world synced",
-    tag: "Optional",
-    body: "Turn it on and Tandem keeps the latest copy of the world in the cloud. Whoever plays next gets it, so anyone in the group can host.",
-  },
+export const tandemFeatures = [
+  { icon: "play", title: "Just play", body: "No ports, no IP addresses." },
+  { icon: "cloud", title: "Keep it synced", tag: "Optional", body: "Anyone in the group can host the latest copy." },
+  { icon: "history", title: "Go back in time", body: "Restore an older save, or download it as a zip." },
 ];
 
-export const launchers = ["Prism Launcher", "Modrinth App", "CurseForge", "Minecraft Launcher"];
+export const launchers = ["Prism", "the Modrinth App", "CurseForge", "the Minecraft Launcher"];
 
 export const faq = [
-  {
-    q: "Does Atlas replace my launcher?",
-    a: "No. Your launcher still owns and launches the instance. Atlas sits beside it and keeps the files in step.",
-  },
-  {
-    q: "Is it free?",
-    a: "Yes. Atlas and Tandem are both free. Atlas is open source under the GPL-3.0 licence.",
-  },
-  {
-    q: "Does Tandem need a server?",
-    a: "No. Whoever opens the world hosts it from their own game, and friends join through their friends list. If you turn on world sync, the world is also saved to the cloud so the next person can host the latest copy.",
-  },
-  {
-    q: "When can I get Tandem?",
-    a: "Tandem is still in development. It'll be on Modrinth and CurseForge when it's ready, and the button above will light up.",
-  },
-  {
-    q: "Do my friends need Atlas too?",
-    a: "Yes, everyone in the pack runs Atlas. That's how their copies stay in sync without anyone sending files around.",
-  },
-  {
-    q: "Where do the mods come from?",
-    a: "From Modrinth and CurseForge directly. A few CurseForge mods only allow downloads from their own page, so Atlas opens it for you and picks the file up from your Downloads folder. It only uploads files that aren't on either site, like your configs.",
-  },
+  { q: "How do I get Tandem?", a: "Join the Discord. It comes to Modrinth and CurseForge after the beta." },
+  { q: "Is it free?", a: "Yes. Everyone gets 5 GB for synced worlds." },
+  { q: "Do I need both?", a: "No. Use either one, or both." },
+  { q: "Does Atlas replace my launcher?", a: "No. Atlas runs beside it." },
+  { q: "Where do the mods come from?", a: "Modrinth and CurseForge." },
+  { q: "What does Tandem upload?", a: "Only the worlds you sync." },
 ];
 
 export const disclaimer =
