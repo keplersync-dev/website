@@ -14,7 +14,7 @@ export const launchers = ["Prism", "the Modrinth App", "CurseForge", "the Minecr
 
 export const faq = [
   { q: "How do I get Tandem?", a: "Join the Discord. It comes to Modrinth and CurseForge after the beta." },
-  { q: "Is it free?", a: "Yes. Everyone gets 5 GB for synced worlds." },
+  { q: "Is it free?", a: "Yes. Atlas and Tandem are free, and so is playing together. Syncing a world, so anyone in your group can host it, keeps a copy in the cloud, and that space has a limit." },
   { q: "Do I need both?", a: "No. Use either one, or both." },
   { q: "Does Atlas replace my launcher?", a: "No. Atlas runs beside it." },
   { q: "Where do the mods come from?", a: "Modrinth and CurseForge." },
